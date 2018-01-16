@@ -78,10 +78,21 @@
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
       console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
+      document.getElementById('userDetails').innerHTML =
         'Thanks for logging in, ' + response.name + '!
     });
   }
+	
+	function logOut() {
+		FB.logout(function(response) {
+			console.log('logout :: ', response);
+			//Removing access token form localStorage.
+			$('#loginBtn').show();
+			$('#logoutBtn').hide();
+			$('#userDetails').hide();
+		});
+	}
+
 </script>
 
 <!--
@@ -92,8 +103,8 @@
 
 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
-
-<div id="status">
+<button id="logoutBtn" onclick="logOut();" value="Logout">Logout</button>
+<div id="userDetails">
 </div>
 
 </body>
