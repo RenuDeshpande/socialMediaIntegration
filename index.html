@@ -11,10 +11,7 @@
 	
 <script>
 
-	$( document ).ready(function() {
-		$('#logoutBtn').hide();
-		$('#userDetails').hide();
-	});
+	
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
     console.log('statusChangeCallback');
@@ -89,15 +86,7 @@
     });
   }
 	
-	function logOut() {
-		FB.logout(function(response) {
-			console.log('logout :: ', response);
-			//Removing access token form localStorage.
-			$('#loginBtn').show();
-			$('#logoutBtn').hide();
-			$('#userDetails').hide();
-		});
-	}
+	
 
 </script>
 
@@ -109,7 +98,7 @@
 
 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
-<button id="logoutBtn" onclick="logOut();" value="Logout">Logout</button>
+
 <div id="userDetails">
 </div>
 
