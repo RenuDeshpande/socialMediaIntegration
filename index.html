@@ -93,12 +93,11 @@
 <script type="in/Login"></script>
 <div id="status">
 </div>
-// Setup an event listener to make an API call once auth is complete
+	<script>
+
 function onLinkedInLoad() {
  IN.Event.on(IN, "auth", getProfileData);
 }
-
-// Logout user
 function logout(){
   IN.User.logout(onLogout);
 }
@@ -107,7 +106,7 @@ function onLogout(){
   console.log('Logout successfully');
 }
 
-// Use the API call wrapper to request the member's basic profile data
+
 function getProfileData() {
  
  IN.API.Profile("me").fields("first-name", "last-name", "email-address","picture-url").result(function (data) {
@@ -121,6 +120,7 @@ function getProfileData() {
  }).error(function (data) {
   console.log(data);
  });
+	</script>
  <table id='tableUser' style='display: none;'>
    <tr>
      <td>Name</td>
