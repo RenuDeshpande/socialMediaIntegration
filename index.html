@@ -8,7 +8,7 @@
 <!--linkedIn login -->
 <script type="text/javascript" src="https://platform.linkedin.com/in.js">
   api_key:814y575mfykgnx
-  onLoad: OnLinkedInFrameworkLoad
+  onLoad: OnLinkedInFrameworkLoad()
   authorize: true
 </script>	
 </head>
@@ -90,9 +90,10 @@
 
 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
-<script type="in/Login"></script>
+
 <div id="status">
 </div>
+<script type="in/Login"></script>
 <script>
 function OnLinkedInFrameworkLoad() {
   IN.Event.on(IN, "auth", OnLinkedInAuth);
