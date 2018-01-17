@@ -9,6 +9,7 @@
 <script type="text/javascript" src="https://platform.linkedin.com/in.js">
   api_key:814y575mfykgnx
   authorize: true
+ onLoad: onLinkedInLoad
 </script>	
 </head>
 <body>
@@ -89,28 +90,55 @@
 
 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
-<script type="in/Login" onlogin="OnLinkedInFrameworkLoad()"></script>
+<script type="in/Login"></script>
 <div id="status">
 </div>
-<script>
-function OnLinkedInFrameworkLoad() {
-  IN.Event.on(IN, "auth", OnLinkedInAuth);
+// Setup an event listener to make an API call once auth is complete
+function onLinkedInLoad() {
+ IN.Event.on(IN, "auth", getProfileData);
 }
-function OnLinkedInAuth() {
-    IN.API.Profile("me").result(ShowProfileData);
-}
-    function ShowProfileData(profiles) {
-    var member = profiles.values[0];
-    var id=member.id;
-    var firstName=member.firstName; 
-    var lastName=member.lastName; 
-    var photo=member.pictureUrl; 
-    var headline=member.headline; 
 
-    //use information captured above
+// Logout user
+function logout(){
+  IN.User.logout(onLogout);
 }
-</script>	
 
+function onLogout(){
+  console.log('Logout successfully');
+}
+
+// Use the API call wrapper to request the member's basic profile data
+function getProfileData() {
+ 
+ IN.API.Profile("me").fields("first-name", "last-name", "email-address","picture-url").result(function (data) {
+ 
+  var userdata = data.values[0];
+  var fname = userdata.firstName;
+  var lname = userdata.lastName;
+  var email = userdata.emailAddress;
+  var profile_photo = userdata.pictureUrl;
+  logout();
+ }).error(function (data) {
+  console.log(data);
+ });
+ <table id='tableUser' style='display: none;'>
+   <tr>
+     <td>Name</td>
+     <td><span id='fullname'><script>  document.getElementByName('userdata').innerHTML =
+        'Thanks for logging in, ' + userdata.firstname + '!';</span></td>
+   </tr>
+
+   <tr>
+    <td>Email</td>
+    <td><span id='email'></span></td>
+   </tr>
+
+   <tr>
+    <td>Profile image</td>
+    <td><img src='' width='32' height='32' id='profile_photo'></td>
+   </tr>
+
+  </table>
 
 </body>
 </html>
